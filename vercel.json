@@ -1,18 +1,22 @@
 {
     "version": 2,
-    "builds": [
-        {
-            "src": "public/index.php",
-            "use": "@juicyfx/vercel-php"
+    "functions": {
+        "api/index.php": {
+            "runtime": "vercel-php@0.6.1"
         }
-    ],
+    },
     "routes": [
         {
-            "handle": "filesystem"
+            "src": "/build/(.*)",
+            "dest": "/public/build/"
+        },
+        {
+            "src": "/storage/(.*)",
+            "dest": "/public/storage/"
         },
         {
             "src": "/(.*)",
-            "dest": "/public/index.php"
+            "dest": "/api/index.php"
         }
     ],
     "outputDirectory": "public"
