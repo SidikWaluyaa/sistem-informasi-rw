@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,5 +31,9 @@ class AppServiceProvider extends ServiceProvider
         //
         Carbon::setLocale('id');
         Blade::component('layouts.app', 'app-layout');
+
+        if ($this->app->environment('production')) {
+            URL::forceScheme('https');
+        }
     }
 }
